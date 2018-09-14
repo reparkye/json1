@@ -5,20 +5,31 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<!-- <input type="button" value="버튼"> 		이벤트 줘야함
-	<input type="submit" value="전송버튼">	form태그 -->
-	
-	<button data-target="GET,/json/attr.html">버튼</button>
-	<button data-target="POST,/json/attr.html">전송버튼d</button>
+	<div id="htmlDiv"></div>
+	<button data-target="GET,/json/content.jsp">버튼</button>
+	<button data-target="POST,/json/content.jsp">전송버튼d</button>
 <script>
 	var btns = document.querySelectorAll('button[data-target]');  /* 배열 타입*/
+	var htmlDiv = document.querySelector('#htmlDiv');
 	
+	function callback(res){
+		htmlDiv.insertAdjacentHTML('afterbegin',res);		/* 넣는키가 afterbegin 포함 총 4개	 */
+	}
 	for(var i=0; i<btns.length; i++){
 		var btn = btns[i];
-		var targets = btn.getAttribute('data-target').split(",");
-		console.log(`Method :${targets[0]}`);	/* 문자와 변수를 한꺼번에 사용하게끔 */
-		console.log(`URI :${targets[1]}`);
-
+		btn.onclick = function(){
+			var targets = this.getAttribute('data-target').split(",");  
+			var method = targets[0];
+			var url = targets[1];
+			var xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){		
+				if(xhr.readyState == xhr.DONE){		/* 4가 되면 모든 응답이 끝났다는 사실 */
+					callback(xhr.response);
+				}
+			}
+			xhr.open(method,url);   /* 전화번호 누름 */
+			xhr.send();					/* 신호가 감 */
+		}
 	}
 
 </script>	
