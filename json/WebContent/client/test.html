@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	이름 : <input type="text" name="name" id="name" value="ghfrldehd"><br>
+	아이디 : <input type="text" name="id" id="id" value="hong"><br>
+	비밀번호 : <input type="password" name="pwd" id="pwd" value="q1w2e3"><br>
+	성별 : <select name="trans" id="trans">
+				<option value="1">남</option>
+				<option value="2" selected>여</option>      
+		</select><br>
+	<button data-json="/json/server/test.jsp">회원가입</button>
+<script>
+	var btns = document.querySelectorAll('button[data-json]');
+	for(var i=0;i<btns.length;i++){
+		var btn = btns[i];
+		btn.onclick = function(){
+			var url = this.getAttribute('data-json');
+			var xhr = new XMLHttpRequest();
+			var name = document.querySelector('#name').value;
+			var id = document.querySelector('#id').value;
+			var pwd = document.querySelector('#pwd').value;
+			var trans = document.querySelector('#trans').value;
+			var param = {name:name ,id:id ,pwd:pwd ,trans:trans};
+					//파람의 변수 네임과 위의 var 네임
+			param = JSON.stringify(param);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState ==xhr.DONE){
+					if(xhr.status == 200){
+						var json = xhr.responseText;
+						var list = JSON.parse(json);
+						for(var i=0,max=list.length();i<)
+					}else{
+						alert('뭔지 몰라도 실패');
+					}
+				}	
+			}
+			xhr.open('POST',url); //encodeURIComponent() 해주지 않으면 에러
+			xhr.send(param);
+		}
+	}	
+
+</script>	
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<!-- <input type="button" value="버튼"> 		이벤트 줘야함
+	<input type="submit" value="전송버튼">	form태그 -->
+	
+	<button data-target="GET,/json/attr.html">버튼</button>
+	<button data-target="POST,/json/attr.html">전송버튼d</button>
+<script>
+	var btns = document.querySelectorAll('button[data-target]');  /* 배열 타입*/
+	
+	for(var i=0; i<btns.length; i++){
+		var btn = btns[i];
+		var targets = btn.getAttribute('data-target').split(",");
+		console.log(`Method :${targets[0]}`);	/* 문자와 변수를 한꺼번에 사용하게끔 */
+		console.log(`URI :${targets[1]}`);
+
+	}
+
+</script>	
+	
+</body>
+</html>

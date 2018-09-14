@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>  
+
+번호 : <input type="text" name="dinum" id="dinum"><br>
+코드 : <input type="text" name="dicode" id="dicode"><br>
+이름 : <input type="text" name="diname" id="diname"><br>
+정보 : <input type="text" name="didesc" id="didesc"><br>
+	<button data-json="/json/server/ttest.jsp">입력해주세요</button>
+
+<script>
+	var btns = document.querySelectorAll('button[data-json]');
+	for(var i=0; i<btns.length; i++){
+		var btn = btns[i];
+		btn.onclick = function(){
+			var url = this.getAttribute('data-json');
+			var xhr = new XMLHttpRequest();
+			var dinum = document.querySelector("#dinum").value;
+			var dicode = document.querySelector('#dicode').value;
+			var diname = document.querySelector('#diname').value;
+			var didesc = document.querySelector('#didesc').value;
+			var param = {dinum:dinum, dicode:dicode, diname:diname, didesc:didesc}; 
+			
+			param = JSON.stringify(param);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == xhr.DONE){
+					if(xhr.status == 200){
+						alert(xhr.responseText);
+					}else{
+						alert("실패했습니다.");
+					}
+				}
+			}
+			
+			/* xhr.open('GET',url + '?param=' + encodeURIComponent(param));
+			xhr.send(); */
+			xhr.open('POST',url); 
+			xhr.send(param);
+		}
+	}
+</script>
+
+</body>
+</html>

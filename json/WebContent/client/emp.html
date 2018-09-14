@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	EMP번호	:	<input type="text" id="empno" name="empno" ><br> 
+	그것의이름 : 	<input type="text" id="empname" name="empname" ><br>
+	직업		:	<input type="text" id="empjob" name="empjob" ><br>
+	MGR		:	<input type="text" id="empmgr" name="empmgr" ><br>
+	입사입	:	<input type="text" id="hiredate" name="hiredate" ><br>
+	SAL		:	<input type="text" id="sal" name="sal" value=""><br>
+	COMM	:	<input type="text" id="comm" name="comm" value=""><br>
+	DEPTNO	:	<input type="text" id="deptno" name="deptno" ><br>
+	
+	<button data-json="/json/server/emp.jsp">회원가입</button>
+<script>
+	var btns = document.querySelectorAll('button[data-json]');
+	for(var i=0; i<btns.length; i++){
+		var btn = btns[i];
+		btn.onclick = function(){
+			var url = this.getAttribute('data-json');
+			var xhr = new XMLHttpRequest();
+			var emnum = document.querySelector('#empno').value;
+			var emname = document.querySelector('#empname').value;
+			var emjob = document.querySelector('#empjob').value;
+			var emmgr = document.querySelector('#empmgr').value;
+			var emhiredate = document.querySelector('#hiredate').value;
+			var emsal = document.querySelector('#sal').value;
+			var emcomm = document.querySelector('#comm').value;
+			var emdeptno = document.querySelector('#deptno').value;
+			
+			var param = {emnum:emnum,emname:emname,emjob:emjob, emmgr:emmgr, emhiredate:emhiredate, emsal:emsal, emcomm:emcomm, emdeptno:emdeptno};
+			  
+			param = JSON.stringify(param);
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == xhr.DONE){
+					if(xhr.status == 200){
+						alert(xhr.responseText)
+					}else{
+						alert("미안 실패");
+					}
+				}
+			}
+			alert(param);
+			return;
+			xhr.open('GET',url + '?param=' + encodeURIComponent(param));
+			xhr.send();
+			alert(1000);
+		}
+	}
+
+</script>	
+</body>
+</html>
