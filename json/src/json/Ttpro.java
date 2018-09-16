@@ -11,13 +11,16 @@ import org.apache.commons.dbutils.BeanProcessor;
 
 public class Ttpro {
 	
-	public List<DepartIn> getInfo(){
+	public List<DepartIn> getInfo(String sch){
 		Connection con = DBCon.getCon();
 		
-		String sql = "select * from depart_info";
+		String sql = "select * from depart_info where diname LIKE '%'|| ? || '%' ";
 		
 		try {
 			PreparedStatement ps = con.prepareStatement(sql);
+			
+			ps.setString(1, sch);
+			
 			ResultSet rs = ps.executeQuery();
 			
 			List<DepartIn> dList = new ArrayList<DepartIn>();

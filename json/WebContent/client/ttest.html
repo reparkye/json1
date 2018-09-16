@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>  
+<input type="text" name="sch" id="sch"><br><br>
 
 번호 : <input type="text" name="dinum" id="dinum"><br>
 코드 : <input type="text" name="dicode" id="dicode"><br>
@@ -19,11 +20,15 @@
 		btn.onclick = function(){
 			var url = this.getAttribute('data-json');
 			var xhr = new XMLHttpRequest();
+			
+			var sch = document.querySelector('#sch').value;
+			
 			var dinum = document.querySelector("#dinum").value;
 			var dicode = document.querySelector('#dicode').value;
 			var diname = document.querySelector('#diname').value;
 			var didesc = document.querySelector('#didesc').value;
-			var param = {dinum:dinum, dicode:dicode, diname:diname, didesc:didesc}; 
+			//var param = {dinum:dinum, dicode:dicode, diname:diname, didesc:didesc}; 
+			var param = {sch:sch};
 			
 			param = JSON.stringify(param);
 			xhr.onreadystatechange = function(){
