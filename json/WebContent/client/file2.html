@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<form action="/json/server/file.jsp" method="post" enctype="multipart/form-data">
+		이름 : <input type="text" name="name"><br>
+		이미지 : <input type="file" name="img"><br>
+		<button type="button">전송</button>
+	</form>
+	<progress id="prog" value="0"></progress>
+<script>
+	var btn = document.querySelector('button');
+	btn.onclick = function(){
+		var form = document.querySelector('form');
+		var formData = new FormData(form);
+		var url = form.getAttribute('action');
+		var xhr = new XMLHttpRequest();
+		var prog = document.querySelector('#prog');
+		
+		//요청 서버 주소와 메서드로 연결을 해놓는다.
+		xhr.open('POST',url);
+		
+		//xhr의 readyState가 변할때 일어나는 이벤트에 함수를 대입한다.
+		//readyState는 0-4까지 있으며 4일때가 서버 응답이 완료 됬을때이다.
+		xhr.onreadystatechange = function(){
+			//xhr.DONE은 4값을 의미한다. 즉 서버 응답 완료를 얘기한다.
+			if(xhr.readyState == xhr.DONE){
+				//xhr.status의 값이 200일경우 서버측 응답이 에러 없으 작동했다는 것을 의미한다.
+				if(xhr.status==200){
+					alert('전송 성공!!');
+				}else{
+					alert('전송 실패!!');
+				}
+			}
+		}
+		//파일 전송 시작 이베트
+		xhr.upload.onloadstrat = function(e){
+			prog.max = e.total;
+			prog.value = e.loaded;
+		}
+		//파일 전송 중 이벤트
+		xhr.upload.onprogress = function(e){
+			if(e.lengthComputable){
+				prog.max = e.total;
+				prog.value = e.loaded;
+			}
+		}
+		//파일 전송 완료 이벤트
+		xhr.upload.onloadend = function(e){
+			prog.value = e.total;
+		}
+		
+		//서버에 forData요청
+		xhr.send(formData);
+	}
+</script>
+</body>
+</html>

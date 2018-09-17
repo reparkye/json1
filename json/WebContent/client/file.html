@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+<form action ="/json/server/file.jsp" method="post" enctype="multipart/form-data">
+	이름 : <input type="text" name="name"><br>
+	이미지 : <input type="file" name="img"><br>
+	<button type="button">전송</button>
+</form>
+
+<progress id="prog" value="0"></progress>
+
+<script>
+	var btn = document.querySelector('button');
+	btn.onclick = function(){
+		var form = document.querySelector('form');
+		var formData = new FormData(form);
+		var url = form.getAttribute('action');
+		var xhr = new XMLHttpRequest();
+		var prog = document.querySelector('#prog');
+		
+		xhr.open('POST',url);
+		xhr.onreadystatechange = function(){
+			if(xhr.readyState == xhr.DONE){
+				if(xhr.status == 200){
+					alert('전송 ㅇㅋ');
+				}else{
+					alert('전송 실패');
+				}
+			}
+		}
+		xhr.upload.onprogress = function(e){
+			prog.max = e.total;
+			prog.value = e.loaded;
+		}
+	}
+		xhr.upload.onloadend = function(e){
+			prog.value = e.total;
+		}
+		xhr.send(forData);
+		}
+		
+</script>
+
+</body>
+</html>
