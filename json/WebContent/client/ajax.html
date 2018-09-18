@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+
+<body>
+<script>
+
+	
+	var AjaxUtil = function(conf){
+		var method = conf.method?conf.method:'GET';
+		var url = conf.url;
+		var params = conf.params;
+		var type = conf.type?conf.type:'json';
+		
+		var comErr = function(res){
+			alert(res);
+		}
+		var comCb = function(res){
+			alert(res);
+		}	
+		
+		var callback = conf.cd?conf.cd:comCb;
+		var errback = conf.err?conf.err:comErr;
+		
+		var xhr = new XMLHttpRequest();
+		
+		xhr.cb = callback;
+		xhr.err = errback;	
+		
+		 xhr.onreadystatechange = function(){
+			if(xhr.readyState == 4){
+				if(xhr.status == 200){
+					this.cb(xhr.response);			
+				}else{
+					this.err(xhr.response);
+				}
+			}
+		}	
+		this.send = function(){			//외부호출
+		xhr.open(method,url);
+		xhr.send();
+		}
+		
+	}		
+	 
+	
+	  var au = new AjaxUtil({
+		  url:'http://192.168.0.25/json/server/test.jsp'
+		  ,cb:function(res){
+			  console.log(res);
+			  res = JSON.parse(res);
+			  console.log(res);
+		  }
+	  });
+	
+	
+	  
+	</script>
+</body>
+</html>

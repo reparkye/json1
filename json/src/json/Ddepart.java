@@ -2,47 +2,48 @@ package json;
 
 public class Ddepart {
 
-	private int num;
-	private String name;
-	private String type;
+	private int dinum;
+	private String diname;
+	private String ditype;
 	
 	public Ddepart() {}
 
-	public Ddepart(int num, String name, String type) {
-		super();
-		this.num = num;
-		this.name = name;
-		this.type = type;
-	}
-
 	@Override
 	public String toString() {
-		return "Ddepart [num=" + num + ", name=" + name + ", type=" + type + "]";
+		return "Ddepart [dinum=" + dinum + ", diname=" + diname + ", ditype=" + ditype + "]";
 	}
 
-	public int getNum() {
-		return num;
+	public Ddepart(int dinum, String diname, String ditype) {
+		super();
+		this.dinum = dinum;
+		this.diname = diname;
+		this.ditype = ditype;
 	}
 
-	public void setNum(int num) {
-		this.num = num;
+	public int getDinum() {
+		return dinum;
 	}
 
-	public String getName() {
-		return name;
+	public void setDinum(int dinum) {
+		this.dinum = dinum;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getDiname() {
+		return diname;
 	}
 
-	public String getType() {
-		return type;
+	public void setDiname(String diname) {
+		this.diname = diname;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public String getDitype() {
+		return ditype;
 	}
+
+	public void setDitype(String ditype) {
+		this.ditype = ditype;
+	}
+
 	
 	
 }

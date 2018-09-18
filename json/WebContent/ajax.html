@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+
+<script src="/json/js/AjaxsUtil.js"></script>
+</head>
+<body>
+	부서명 : <input type ="text" name ="diname" id ="diname">
+	<button onclick="getData()">검색</button>
+	<div id="rDiv"></div>
+<script>
+	var conf = {
+			url:'/json/server/depart.jsp'
+			,cb:function(res){
+				document.querySelector('#rDiv').innerHTML = res;
+			}
+			
+		};
+	function getData(){
+		var diname = document.querySelector('#diname').value;
+		conf.params = {diname:diname};
+		var au = new AjaxUtil(conf);
+		au.send();
+	}
+</script>
+
+</body>
+</html>
