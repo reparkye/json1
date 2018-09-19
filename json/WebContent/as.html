@@ -1,14 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <script src ="/json/js/AjaxUtil.js"></script>
 </head>
 <body>
 <script>
-	var au = new AjaxUtil({url:'/json/json/list1'});
+	var au = new AjaxUtil({url:'/json/json/list',cb:callback});	//callback 약자 cb -> AjaxUtil
+												// cb:callback 값을 안주고 출력하게 되면 알람만 뜸
 	au.send();
+	
+	function callback(res){			//function으로 만든 메소드들은 먼저 선언만하고 시작 실행되는건 아님!!!
+		var diList = JSON.parse(res);			
+		for(var di of diList){   //in 은 키  of 는 밸류
+			console.log(di);
+		}
+	}
+	/* function callback(res){	
+		console.log(res);
+	}		이것의 대한 값은 그냥 	table 값들이 스트링 형태로 나옴*/
+	
 </script>
 </body>
 </html>

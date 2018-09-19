@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+ <script src = "/json/js/AjaxUtil.js"></script> 
+</head>
+<body>
+<script>
+	var aa = new AjaxUtil({url:'/json/level/leve',cb:callback});
+	aa.send();
+	
+	function callback(res){					
+		var lList = JSON.parse(res);
+		for(var li of lList){
+			console.log(li);
+		}
+	}
+
+</script>
+</body>
+</html>

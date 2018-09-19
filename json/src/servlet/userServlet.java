@@ -11,48 +11,35 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import service.DepartService;
+import service.UserService;
 
 
-/**
- * Servlet implementation class jsonServlet
- */
-@WebServlet("/json/*")
-public class jsonServlet extends HttpServlet {
+@WebServlet("/susa/*")
+public class userServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    private Gson gson = new Gson();   				
-	private DepartService ds = new DepartService();
+       private Gson gson = new Gson();
+       private UserService us = new UserService();
+       
+   
     
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public jsonServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String uri = request.getRequestURI();
 		String cmd = uri.substring(uri.lastIndexOf("/")+1);		//  1을 안써주면 '/list'로 출력되어 equals 문에 비교가 되기에 문제가 발생
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter pw = response.getWriter();
-		if(cmd.equals("list")) {
-			String json = gson.toJson(ds.getDepartInfoList()); //리스트 받아오는걸 스트링으로 바꾸는 작업?  gson 덕분에 사용
+		if(cmd.equals("listt")) {
+			String json = gson.toJson(us.getUserInfoList());	// 11 gson 덕분에 사용
 			pw.print(json);
-			
-			
 		}else {
 			response.setStatus(404);
-			pw.print("너 주소 이상해");
-			pw.flush();
+			pw.print("자네 주소 이상");
 			return;
 		}
+		
+		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		doGet(request, response);
