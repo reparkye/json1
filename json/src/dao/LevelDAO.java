@@ -29,7 +29,7 @@ public class LevelDAO {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			
+			DBCon.closeCon();
 		}
 		
 		return lList;

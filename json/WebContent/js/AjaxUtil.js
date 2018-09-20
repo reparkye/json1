@@ -6,7 +6,7 @@
 		var AjaxUtil = function(conf){
 		var method = conf.method?conf.method:'GET';
 		var url = conf.url;
-		var params = conf.params;
+		var params = conf.params?JSON.stringify(conf.params):'';
 		var type = conf.type?conf.type:'json';
 		
 		//alert("2");
@@ -37,7 +37,7 @@
 		}	
 		this.send = function(){			//외부호출
 		if(method=='GET'){
-			url += '?params=' + encodeURIComponent(JSON.stringify(params));
+			url += '?params=' + encodeURIComponent(params);
 		}
 		xhr.open(method,url);
 		xhr.send(params);
