@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script src="/json/js/AjaxUtil.js"></script>
+</head>
+<body>
+<script>
+	var au = new AjaxUtil({url:'/json/test/ttlist',cb:callback});
+	au.send();
+	
+	function callback(res){
+		var ddd = JSON.parse(res);
+		for(var di of ddd){
+			console.log(di);
+		}
+	}
+
+</script>
+</body>
+</html>
