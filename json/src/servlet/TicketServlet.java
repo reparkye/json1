@@ -76,7 +76,7 @@ public class TicketServlet extends HttpServlet {
 	}
 	
 	private void doWrite(HttpServletResponse res,Object obj)throws IOException {	//각각 메소드에 전부 필요한데 하나로 만들기 위해 doservice창과 유사
-		res.setContentType("application/json;charset=utf-8");
+		res.setContentType("application/json;charset=utf-8");		//<br>태그 인식 안하고 같이 '<br>'출력됨 하게 하려면 앞자리에application/json; 지우고 text/html; 뭐기시 입력
 		PrintWriter pw = res.getWriter();
 		pw.write(gson.toJson(obj));
 		pw.flush();
