@@ -34,7 +34,7 @@
 			html += '<tr><td colspan="7">등록된 영화없다</td></tr>';
 		}
 		for(var tm of res.list){
-			html += '<tr>';
+			html += '<tr>';								
 			html += '<td>' + tm.tmnum + '</td>';
 			html += '<td><a href="/json/ticket/view.jsp?tmnum=' + tm.tmnum + '">' + tm.tmname + '</a></td>';
 			html += '<td>' + tm.tmprice + '</td>';
