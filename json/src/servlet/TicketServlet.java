@@ -50,13 +50,27 @@ public class TicketServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Ticket t = gson.fromJson(request.getReader(), Ticket.class);
-		
-		System.out.println(t);
+		String uri = request.getRequestURI();
+		String cmd = uri.substring(uri.lastIndexOf("/")+1);
 
+		/*String uri = request.getRequestURI();
+		String cmd = uri.substring(uri.lastIndexOf("/")+1);
+		System.out.println(cmd);*/
+		System.out.println(t);
+		if(cmd.equals("insert")) {
 		int rCnt = ts.insertTicket(t);
 		Map<String,Integer> rMap = new HashMap<String,Integer>();
 		rMap.put("rCnt", rCnt);
 		doWrite(response,rMap);
+		
+		}else if(cmd.equals("update")) {
+		
+
+		int uCnt = ts.updateTicket(t);
+		Map<String,Integer> uMap = new HashMap<String,Integer>();
+		uMap.put("rCnt", uCnt);
+		doWrite(response,uMap);
+		}
 	}
 
 	protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

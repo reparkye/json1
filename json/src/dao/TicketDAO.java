@@ -28,6 +28,22 @@ public class TicketDAO {
 			 e.printStackTrace();
 		 }
 	 }
+	 
+	/* public int countList(Ticket ti) {
+		 String sql = "select count(*) from ticket_movie";
+		 Connection con = DBCon.getCon();
+		 try {
+			 ps = con.prepareStatement(sql);
+			 rs = ps.executeQuery();
+			 if(rs.next()) {
+				 
+			 }
+		 }catch(SQLException e) {
+			 
+		 }
+	 }
+	 */
+	 
 	
 	public List<Ticket> selectTicketList(Ticket ti){
 		 List<Ticket> ticketList = new ArrayList<Ticket>();
@@ -95,8 +111,8 @@ public class TicketDAO {
 			ps.setInt(2, ticket.getTmprice());
 			ps.setString(3, ticket.getTmstartdat().replaceAll("-",""));
 			ps.setString(4, ticket.getTmenddat().replaceAll("-",""));
-			ps.setString(5, ticket.getTmdesc());
-			ps.setString(6, ticket.getTmimg());
+			//ps.setString(5, ticket.getTmdesc());  두개를 추가하면 에러 발생해요 ㅎㅎ
+			//ps.setString(6, ticket.getTmimg());
 			return ps.executeUpdate();
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -105,20 +121,37 @@ public class TicketDAO {
 		}
 		return 0;
 	}
-		/*con = DBCon.getCon();
+		
+	
+	public int deleteTicket(Ticket ticket) {
+		String sql = "delete from ticket_movie where tmnum=?";
+		con = DBCon.getCon();
 		try {
-			String sql = "insert into ticket_movie values(seq_tmnum.nextval,?,?,?,?,?,?,?,?)"; 
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, ticket.getTmnum());
-			ps.setString(2, ticket.getTmname());
-			ps.setInt(3, ticket.getTmprice());
-			ps.setString(4, ticket.getTmstartdat());
-			ps.setString(5, ticket.getTmenddat());
-			ps.setString(6, ticket.getTmcredat());
-			ps.setString(7, ticket.getTmdesc());
-			ps.setInt(8, ticket.getTmcnt());
-			ps.setString(9, ticket.getTmimg());
-		
+			return ps.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close();
+		}
+		return 0;
+	}
+	
+
+	public int updateTicket(Ticket ticket) {
+		con = DBCon.getCon();
+		String sql = "update ticket_movie set tmname=?,";
+				sql += " tmstartdat=?, tmenddat=?,";
+				sql += " tmcnt = ?  where tmnum=?";
+		try {
+			ps = con.prepareStatement(sql);
+			ps.setString(1, ticket.getTmname());
+			ps.setString(2, ticket.getTmstartdat());
+			ps.setString(3, ticket.getTmenddat());
+			ps.setInt(4, ticket.getTmcnt());
+			ps.setInt(5, ticket.getTmnum());
+
 			return ps.executeUpdate();
 			
 		}catch(SQLException e) {
@@ -126,18 +159,6 @@ public class TicketDAO {
 		}finally {
 			close();
 		}
-			return 0;
-	}*/
-	
-	public int deleteTicket(Ticket ticket) {
-		
 		return 0;
 	}
-
-	public int updateTicket(Ticket ticket) {
-	
-		return 0;
-	}
-	
-	
 }

@@ -24,8 +24,8 @@
 <script>
 	var tbody = document.querySelector('#tbody');
 	window.onload = function(){
-		var au = new AjaxUtil({url:'/json/api/ticket/list',cb:callback}); 
-		au.send();
+		var au = new AjaxUtil({url:'/json/api/ticket/list',cb:callback});   //가장 중요 (get방식으로 보낼거니 메소드 생략가능) 
+		au.send();						//호출해야 실제로 서버 요청 
 	function callback(res){
 		res = JSON.parse(res);
 		alert(`page : ${res.page}`);
@@ -36,7 +36,7 @@
 		for(var tm of res.list){
 			html += '<tr>';								
 			html += '<td>' + tm.tmnum + '</td>';
-			html += '<td><a href="/json/ticket/view.jsp?tmnum=' + tm.tmnum + '">' + tm.tmname + '</a></td>';
+			html += '<td><a href="/json/ticket/view.jsp?tmnum=' + tm.tmnum + ' " >' + tm.tmname + '</a></td>';			
 			html += '<td>' + tm.tmprice + '</td>';
 			html += '<td>' + tm.tmstartdat + '</td>';
 			html += '<td>' + tm.tmenddat + '</td>';
