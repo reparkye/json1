@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<script src = "/json/js/AjaxUtil.js" ></script>
+</head>
+<body>
+<table border="1">
+	<thead>
+		<tr>
+			<th></th>
+			<th></th>
+			<th></th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody id="tbody">
+	</tbody>
+</table>
+<script>
+	var tbody = document.querySelector('#id');
+	window.onload = function(){
+		var au = new AjaxUtil({url='/json/api/level/list'});
+		au.send();
+		
+		function callback(res){
+			res = JSON.parse(res);
+			var html = '';
+			if(res.length==0){
+				html += '<tr><td colspan'
+			}
+		}
+	}
+
+
+
+</script>
+
+</body>
+</html>

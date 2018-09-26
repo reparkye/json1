@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+<thead>
+	<tr>
+		<th>번호</th>
+		<th>영화</th>
+		<th>ㄹㅇㅎ</th>
+		<th>ㅀ</th>
+		<th>ㄷㄱ</th>
+		<th>ㅂㅁ</th>
+		<th>ㅊㅍ</th>
+	</tr>
+	</thead>
+	<tbody id="tbody">
+	</tbody>	
+</table>
+<script>
+
+	var tbody = document.querySelector('#tbody');
+	
+	window.onload = function(){
+		var au = new AjaxUtil({url:'/json/api/dicket/list',cb:callback});
+		au.send();
+		
+		function callback(res){
+			res=JSON.parse(res);
+			var html='';
+			if(res.list.length==0){
+				html += '<tr><td colspan="6">등록안됨</tr></td>';
+			}
+			for(var tm of res.list){
+				html += '<tr>';
+				html += '<td>'+ tm.tmnum +'</td>';
+				html += '<td><a href ="/json/dicket/view.jsp?tmnum='+tm.tmnum+'">'+tm.name+'</td>';
+				html += '</tr>';
+			}
+			tbody.AdjacentHTML('afterbegin',html);
+			
+		}
+		
+	}
+
+
+
+</script>
+
+
+</body>
+</html>

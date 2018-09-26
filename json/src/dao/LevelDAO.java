@@ -11,28 +11,62 @@ import json.DBCon;
 import vo.LevelInfo;
 
 public class LevelDAO {
+	private PreparedStatement ps;
+	private ResultSet rs;
+	private Connection con;
 	
-	
-	public List<LevelInfo> selectLevelList(){
-		
+	private void close() {
+		DBCon.closeCon();
+		try {
+			if(ps!=null) {
+			ps.close();
+		}
+			if(rs!=null) {
+				rs.close();
+			}
+	}catch(SQLException e) {
+		e.printStackTrace();
+	}
+	}
+
+	public List<LevelInfo> selectLeveList(LevelInfo li){
 		String sql = "select * from level_info";
-		Connection con = DBCon.getCon();
+		con = DBCon.getCon();
 		List<LevelInfo> lList = new ArrayList<LevelInfo>();
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
+			ps=con.prepareStatement(sql);
+			rs=ps.executeQuery();
 			while(rs.next()) {
-				LevelInfo li = new LevelInfo(rs.getInt("linum"),rs.getInt("lilevel"),rs.getString("liname"),rs.getString("lidesc"));
+				li = new LevelInfo(rs.getInt("linum"),rs.getInt("lilevel"),
+				rs.getString("liname"),rs.getString("lidesc"));				
 				lList.add(li);
 			}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBCon.closeCon();
+			close();
 		}
 		
 		return lList;
+		
 	}
+	
+	public LevelInfo selectLevel(LevelInfo level) {
+		return null;
+	}
+	
+	public int insertLevel(LevelInfo level) {
+		return 0;
+	}
+	
+	public int deleteLevel(LevelInfo level) {
+		return 0;
+	}
+	
+	public int updateLevel(LevelInfo level) {
+		return 0;
+	}
+	
 	
 }

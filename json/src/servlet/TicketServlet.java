@@ -93,7 +93,7 @@ public class TicketServlet extends HttpServlet {
 		res.setContentType("application/json;charset=utf-8");		//<br>태그 인식 안하고 같이 '<br>'출력됨 하게 하려면 앞자리에application/json; 지우고 text/html; 뭐기시 입력
 		PrintWriter pw = res.getWriter();
 		pw.write(gson.toJson(obj));
-		pw.flush();
+		pw.flush();//현재 버퍼에 출력된 내용들을 클라이언트로 전송합니다.
 	}
 	
 	

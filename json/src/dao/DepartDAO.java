@@ -7,79 +7,71 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.ict.erp.vo.TicketMovie;
 
 import json.DBCon;
 import vo.DepartInfo;
 
 public class DepartDAO {
+	private PreparedStatement ps;
+	private ResultSet rs;
+	private Connection con;
 	
-	public List<DepartInfo> selectDepartInfoList(){
-		Connection con = DBCon.getCon();
-		String sql = "select * from depart_info";
-		List<DepartInfo> diList = new ArrayList<DepartInfo>();
+	public void close() {
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				DepartInfo di = new DepartInfo(rs.getInt("dinum"),rs.getString("dicode"),rs.getString("diname"), rs.getString("didesc"));
-				diList.add(di);
+			if(ps!=null) {
+				ps.close();
 			}
-			ps.close();
-			rs.close();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally {
-			DBCon.getCon();
-		}
-		return diList;
-	}
-
-
-	public DepartInfo selectDepartInfo() {
-		String sql = "select * from depart_info where dinum=?";
-		Connection con = DBCon.getCon();
-		List<DepartInfo> dList = new ArrayList<DepartInfo>();
-		try {
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, dinum);
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()) {
-				DepartInfo di = new DepartInfo(rs.getInt("dinum"),rs.getString("dicode"),
-						rs.getString("diname"),rs.getString("didesc"));
-				dList.add(di);
-		}
-			ps.close();
-			rs.close();
+			if(rs!=null) {
+				rs.close();
+			}
 		}catch(SQLException e) {
-			throw e;
-	}finally {
+			e.printStackTrace();
+		}finally{
 		DBCon.closeCon();
 	}
+	}
+	
+	public List<DepartInfo> selectDepartInfoList(DepartInfo depart){
+		String sql = "select * from depart_info";
+		con = DBCon.getCon();
+		List<DepartInfo> dList = new ArrayList<DepartInfo>();
+		try {
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+			while(rs.next()) { // 한줄끝내면 다른줄로 이동~!!!
+				depart = new DepartInfo(rs.getInt("dinum"), rs.getString("dicode"), rs.getString("diname"),
+						rs.getString("didesc"));
+				dList.add(depart);
+			}
+			
+		}catch(SQLException e) {
+			
+		}finally {
+			close();
+		}
 		return dList;
 	}
-	public List<DepartInfo> deleteDepartList(){
-		String sql = "delete from where dinum=?";
-		Connection con = DBCon.getCon();
+	
+	public DepartInfo selectDepartInfo (DepartInfo di) {
+		con = DBCon.getCon();
+		String sql = "select * from depart_info where dinum=?";
 		try {
-			PreparedStatement ps = con.prepareStatement(sql);
-			ps.setInt(1, dinum);
-			return ps.executeUpdate();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, di.getDinum());
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				di = new DepartInfo(rs.getInt("dinum"), rs.getString("dicode"), rs.getString("diname"),
+						rs.getString("didesc"));
+			return di;
+			}	
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}finally {
-			DBCon.closeCon();
+			close();
 		}
+		return null;
 	}
 	
-	public List<DepartInfo> updateDepartList(){
-		
-		
-		
-		
-		
-	}
 	
 	
 	
